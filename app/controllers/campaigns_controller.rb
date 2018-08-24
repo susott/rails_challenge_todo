@@ -5,15 +5,17 @@ class CampaignsController < ApplicationController
     @campaigns = Campaign.all
   end
 
-  def show
-  end
-
   def new
     @campaign = Campaign.new
+    authorize @campaign
+  end
+
+  def show
   end
 
   def create
     @campaign = Campaign.new(params[:campaign])
+    authorize @campaign
     @campaign.save
     redirect_to campaign_path(@campaign)
   end

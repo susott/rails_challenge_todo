@@ -1,19 +1,14 @@
 Rails.application.routes.draw do
-  get 'campaigns/index'
-  get 'campaigns/show'
-  get 'campaigns/new'
-  get 'campaigns/create'
-  get 'campaigns/destroy'
-
-  get 'comments/index'
-  get 'comments/show'
-  get 'comments/new'
-  get 'comments/create'
-  get 'comments/destroy'
+  resources :campaigns, :only => [:index, :new, :show, :create, :destroy]
+  resources :comments, :only => [:index, :new, :create, :destroy]
 
   devise_for :installs
-  devise_for :users
+  devise_for :users, controllers: {
+    sessions: 'users/sessions'
+  }
+
   root to: 'pages#home'
-  # resources :campaigns
+  get '/dashboard', to: 'pages#dashboard', as: 'dashboard'
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

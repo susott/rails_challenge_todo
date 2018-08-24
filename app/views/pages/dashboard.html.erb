@@ -1,0 +1,24 @@
+<h1>Expert Dashboard</h1>
+<p>Welcome <%=current_user.username%></p>
+
+<h3>Your profile</h3>
+
+<ul>
+  <li>Your profession: <%=current_user.profession%></li>
+  <li>Your service: <%=current_user.service%></li>
+  <li>Your status: <%=current_user.status%></li>
+</ul>
+
+<%= link_to "Create a new campaign", new_campaign_path, class: 'button' %>
+
+<h3>Your campaigns</h3>
+<ul>
+<% current_user.campaigns do |campaign|%>
+
+  <li><%=campaign.title%>
+    <%=campaign.duration%>
+    <%=campaign.tags%>
+  </li>
+
+<% end %>
+</ul>

@@ -8,6 +8,9 @@
                 required: true,
                 autofocus: true ,
                 input_html: { autocomplete: "username" }%>
+    <%= f.input :status,
+                required: true,
+                collection: ['qualified', 'not_qualified', 'banned'] %>
     <%= f.input :email,
                 required: true,
                 autofocus: true ,
