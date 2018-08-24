@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180824122044) do
+ActiveRecord::Schema.define(version: 20180824123013) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,18 @@ ActiveRecord::Schema.define(version: 20180824122044) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_campaigns_on_user_id"
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.string "title"
+    t.bigint "user_id"
+    t.bigint "campaign_id"
+    t.bigint "to_do_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["campaign_id"], name: "index_comments_on_campaign_id"
+    t.index ["to_do_id"], name: "index_comments_on_to_do_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "installs", force: :cascade do |t|
@@ -69,6 +81,9 @@ ActiveRecord::Schema.define(version: 20180824122044) do
   end
 
   add_foreign_key "campaigns", "users"
+  add_foreign_key "comments", "campaigns"
+  add_foreign_key "comments", "to_dos"
+  add_foreign_key "comments", "users"
   add_foreign_key "to_do_lists", "campaigns"
   add_foreign_key "to_do_lists", "users"
   add_foreign_key "to_dos", "to_do_lists"
