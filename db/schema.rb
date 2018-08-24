@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180824115259) do
+ActiveRecord::Schema.define(version: 20180824122044) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,6 +37,25 @@ ActiveRecord::Schema.define(version: 20180824115259) do
     t.index ["reset_password_token"], name: "index_installs_on_reset_password_token", unique: true
   end
 
+  create_table "to_do_lists", force: :cascade do |t|
+    t.string "listname"
+    t.bigint "campaign_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["campaign_id"], name: "index_to_do_lists_on_campaign_id"
+    t.index ["user_id"], name: "index_to_do_lists_on_user_id"
+  end
+
+  create_table "to_dos", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.bigint "to_do_list_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["to_do_list_id"], name: "index_to_dos_on_to_do_list_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -50,4 +69,7 @@ ActiveRecord::Schema.define(version: 20180824115259) do
   end
 
   add_foreign_key "campaigns", "users"
+  add_foreign_key "to_do_lists", "campaigns"
+  add_foreign_key "to_do_lists", "users"
+  add_foreign_key "to_dos", "to_do_lists"
 end
