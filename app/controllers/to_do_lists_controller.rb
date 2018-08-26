@@ -3,6 +3,7 @@ class ToDoListsController < ApplicationController
 
   def show
     authorize @to_do_list
+    @comment = Comment.new
     #@to_dos = ToDo.where(to_do_id: @to_do.id)
     @to_dos = ToDo.all
     @to_do = ToDo.new

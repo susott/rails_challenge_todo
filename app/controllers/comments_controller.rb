@@ -27,14 +27,12 @@ class CommentsController < ApplicationController
         render "new"
       end
     else
-      todo = ToDo.find_by_id(params[:comment_id])
-      @comment.todo = todo
+      todo = ToDo.find_by_id(params[:to_do_id])
+      @comment.to_do = todo
       authorize @comment
-      if @comment.save
-        redirect_to campaign_path(@comment.campaign)
-      else
-        render "new"
-      end
+      @comment.save
+      redirect_to to_do_list_path(todo.to_do_list_id)
+
     end
   end
 

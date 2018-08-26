@@ -1,9 +1,27 @@
-<h1><%= @to_do_list.listname %></h1>
-<p>Find me in app/views/to_do_lists/show.html.erb</p>
+<h1><%= @to_do_list.listname.capitalize %></h1>
 
-<ul style="list-style-type:none">
+<ul>
   <% @to_dos.each do |item| %>
-  <li><%= item.name.capitalize %></li>
+  <li>
+    <h4 class="todo_item"><%= item.name.capitalize %></h4>
+    <% @comments = Comment.where(to_do_id: item.id) %>
+    <ul>
+      <% @comments.each do |comment| %>
+        <li>
+          <b> <%= comment.title.capitalize %> </b>
+          written by <% comment.user.username %>
+        </li>
+      <% end %>
+    </ul>
+
+    <% if !item.user.expert %>
+      <%= simple_form_for @comment, html: {class: 'form-inline'} do |f| %>
+        <%= f.input :title, label: false %>
+        <%= hidden_field_tag 'to_do_id', item.id %>
+        <%= f.button :submit %>
+      <% end %>
+    <% end %>
+  </li>
   <% end %>
 </ul>
 

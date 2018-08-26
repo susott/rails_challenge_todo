@@ -6,6 +6,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   has_many :campaigns
   has_many :to_do_lists
+  has_many :to_dos
 
   # status attribute can have three different data values of
   # “:qualified, :not_qualified,:banned” .
