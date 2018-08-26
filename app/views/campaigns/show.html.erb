@@ -1,2 +1,39 @@
-<h1>Campaigns#show</h1>
-<p>Find me in app/views/campaigns/show.html.erb</p>
+<h1><%= @campaign.title.capitalize %></h1>
+
+Estimated Duration: <%=@campaign.duration%> min
+<%=" | #{@campaign.tags}" unless @campaign.tags == [] %>
+
+<h3>Comments to this Campaign</h3>
+<ul style="list-style-type:none">
+  <% @comments.each do |comment| %>
+    <li> <b><%= comment.title %> </b> written by <%= comment.user.username %></li>
+  <% end %>
+</ul>
+
+<%= simple_form_for @comment do |f| %>
+  <%= f.input :title %>
+  <%#= f.hidden_field :campaign_id, :value => @campaign.id %>
+  <%= hidden_field_tag 'campaign_id', @campaign.id %>
+  <%= f.button :submit %>
+<% end %>
+
+<h5><%#= link_to "Add Comment", new_comment_path(@campaign) %></h5>
+
+<h3>To Do Lists in this Campaign</h3>
+<ul style="list-style-type:none">
+  <% @to_do_lists.each do |list| %>
+  <li><%= link_to list.listname.capitalize, list %></li>
+    <li><%#= list.listname.capitalize %></li>
+  <% end %>
+</ul>
+
+<h5><%#= link_to "Add To Do List", new_to_do_list_path %></h5>
+
+<%= simple_form_for @to_do_list do |f| %>
+  <%= f.input :listname %>
+  <%#= f.hidden_field :campaign_id, :value => @campaign.id %>
+  <%= hidden_field_tag 'campaign_id', @campaign.id %>
+  <%= f.button :submit %>
+<% end %>
+
+

@@ -1,15 +1,21 @@
 class CampaignPolicy < ApplicationPolicy
+   attr_reader :user, :campaign
+
+  def initialize(user, campaign)
+    @user = user
+    @campaign = campaign
+  end
 
   # def new?
   #   true
   # end
 
   def create?
-    current_user.expert
+    @user.expert
   end
 
   def destroy?
-    current_user.expert
+    @user.expert
   end
 
   class Scope < Scope

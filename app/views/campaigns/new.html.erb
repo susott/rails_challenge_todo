@@ -1,2 +1,9 @@
 <h1>Campaigns#new</h1>
 <p>Find me in app/views/campaigns/new.html.erb</p>
+
+<%= simple_form_for @campaign do |f| %>
+  <%= f.input :title %>
+  <%= f.input :duration, as: :integer, hint: "in minutes" %>
+  <%= f.input :tags, multiple: true %>
+  <%= f.button :submit %>
+<% end %>

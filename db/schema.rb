@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180824140743) do
+ActiveRecord::Schema.define(version: 20180826060809) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -65,7 +65,9 @@ ActiveRecord::Schema.define(version: 20180824140743) do
     t.bigint "to_do_list_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
     t.index ["to_do_list_id"], name: "index_to_dos_on_to_do_list_id"
+    t.index ["user_id"], name: "index_to_dos_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -93,4 +95,5 @@ ActiveRecord::Schema.define(version: 20180824140743) do
   add_foreign_key "to_do_lists", "campaigns"
   add_foreign_key "to_do_lists", "users"
   add_foreign_key "to_dos", "to_do_lists"
+  add_foreign_key "to_dos", "users"
 end

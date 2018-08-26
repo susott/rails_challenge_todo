@@ -1,0 +1,21 @@
+<h1><%= @to_do_list.listname %></h1>
+<p>Find me in app/views/to_do_lists/show.html.erb</p>
+
+<ul style="list-style-type:none">
+  <% @to_dos.each do |item| %>
+  <li><%= item.name.capitalize %></li>
+  <% end %>
+</ul>
+
+
+<%= simple_form_for @to_do do |f| %>
+  <%= f.input :name %>
+  <%= f.input :description %>
+  <%#= f.hidden_field :campaign_id, :value => @campaign.id %>
+  <%= hidden_field_tag 'to_do_list_id', @to_do_list.id %>
+  <%= f.button :submit %>
+<% end %>
+
+
+
+

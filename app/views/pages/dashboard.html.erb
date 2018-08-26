@@ -1,24 +1,41 @@
-<h1>Expert Dashboard</h1>
-<p>Welcome <%=current_user.username%></p>
+<h1>Dashboard</h1>
+<h3>Welcome <%=current_user.username.capitalize%></h3>
 
-<h3>Your profile</h3>
+<% if @user.expert %>
+  <h3>Your profile</h3>
 
-<ul>
-  <li>Your profession: <%=current_user.profession%></li>
-  <li>Your service: <%=current_user.service%></li>
-  <li>Your status: <%=current_user.status%></li>
-</ul>
+  <ul style="list-style-type:none">
+    <li>You are an expert</li>
+    <li>Your profession: <%=current_user.profession%></li>
+    <li>Your service: <%=current_user.service%></li>
+    <li>Your status: <%=current_user.status%></li>
 
-<%= link_to "Create a new campaign", new_campaign_path, class: 'button' %>
+  </ul>
 
-<h3>Your campaigns</h3>
-<ul>
-<% current_user.campaigns do |campaign|%>
+  <%= link_to "Create a New Campaign", new_campaign_path, class: 'button' %>
+  <%#= link_to "Set novice to expert", new_campaign_path, class: 'button' %>
 
-  <li><%=campaign.title%>
-    <%=campaign.duration%>
-    <%=campaign.tags%>
-  </li>
+  <h3>Your campaigns</h3>
+  <ul>
+    <% current_user.campaigns.each do |campaign|%>
+
+      <li><%= link_to campaign.title, campaign %> |<%=campaign.duration%> min
+        <% unless campaign.tags == [] %>
+          |
+          <% campaign.tags.each do |tag|%>
+            <%= tag %>
+          <% end %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+  <%= link_to "See all Current Campaigns", campaigns_path, class: 'button' %>
+
+
+<% else current_user.expert %>
+<p>You are a novice. Your status: <%=current_user.status%></p>
+  <%= link_to "Check Current Campaigns", campaigns_path, class: 'button' %>
+
+
 
 <% end %>
-</ul>
