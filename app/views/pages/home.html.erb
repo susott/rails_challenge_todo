@@ -2,7 +2,11 @@
 
 <p>Create and Manage your Campaigns and ToDo Lists</p>
 
-<%= link_to "Sign-up", new_user_registration_path %> or
-<%= link_to "Log-in", new_user_session_path %>
+<% if user_signed_in? %>
+  <%= link_to "Go to your Dashboard", dashboard_path, class: "navbar-wagon-item" %>
+<% else %>
+  <%= link_to "Sign-up", new_user_registration_path %> or
+  <%= link_to "Log-in", new_user_session_path %>
+<% end %>
 
 
